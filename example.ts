@@ -9,8 +9,10 @@ try {
 
 Deno.linkSync(src, link);
 
-const fileInfo = Deno.statSync(link);
+const fileInfoStat = Deno.statSync(link);
+const fileInfoLStat = Deno.lstatSync(link);
 
-console.log(fileInfo);
+console.log(fileInfoStat.isSymlink, fileInfoLStat.isSymlink);
 
-if (!fileInfo.isSymlink) throw `${link} should be a symlink...weird`;
+if (!(fileInfoLStat.isSymlink || fileInfoStat.isSymlink))
+  throw `${link} should be a symlink...weird`;
