@@ -1,6 +1,6 @@
 # Reproduction of issue with `Deno.stat[Sync]` on symlinks
 
-Deno Repository Issue:
+Deno Repository Issue: https://github.com/denoland/deno/issues/17723
 
 To reproduce the issue, run `deno task run` (or execute `deno run --allow-read --allow-write example.ts`)
 
