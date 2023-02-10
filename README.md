@@ -1,4 +1,4 @@
-# Reproduction of issue with `Deno.stat[Sync]` on symlinks
+# Reproduction of issue with `Deno.stat[Sync]` and `Deno.lstat[Sync]` on symlinks
 
 Deno Repository Issue: https://github.com/denoland/deno/issues/17723
 
@@ -9,7 +9,8 @@ This code directly creates a (hard) link pointing to `example.ts` and then immed
 ```sh
 # assuming you test from a not-Windows machine
 ln -sf $PWD/example.ts $PWD/symlink.ts
-deno eval "console.log(Deno.statSync('symlink.ts'))"
+deno eval "console.log(Deno.statSync('symlink.ts').isSymlink)"
+deno eval "console.log(Deno.lstatSync('symlink.ts').isSymlink)" # <-- this one *does* produce the correct result
 ```
 
 and observe that, again, `isSymlink` on the resulting `FileInfo` object is `false`.
